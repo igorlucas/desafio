@@ -1,0 +1,11 @@
+{
+  "resources": [
+    {
+      "description": "água",
+      "id": 1,
+      "observable": "Garrafa de 1 litro"
+    }
+  ],
+  "inputs": [],
+  "outputs": []
+}

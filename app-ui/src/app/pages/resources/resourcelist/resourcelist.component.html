@@ -1,0 +1,191 @@
+<div class="container">
+  <div class="jumbotron" style="background-color: white">
+    <h4 class="form-control alert-info text-center">Crie um novo recurso ou realize uma transação de entrada ou saída
+    </h4>
+    <h4 class="form-control alert-info text-center">Edite um recurso informando uma observação</h4>
+    <h4 class="form-control alert-info text-center">Insira a quantidade de um recurso realizando uma transação de
+      entrada
+      e saída</h4>
+  </div>
+
+  <ng-template #newContent let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Novo recurso</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <h4 class="form-control alert-danger">Infome o nome do recurso</h4>
+        <div class="form-group">
+          <label for="description">Descrição</label>
+          <div class="input-group">
+            <input type="text" class="form-control" #description required>
+          </div>
+        </div>
+        <!-- <div class="form-group">
+          <label for="quantity">Quantidade</label>
+          <div class="input-group">
+            <input type="number" class="form-control" #quantity required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="observable">Observação</label>
+          <div class="input-group">
+            <input type="text" class="form-control" #observable required>
+          </div>
+        </div> -->
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" *ngIf="description.value" class="btn btn-outline-dark"
+        (click)="modal.close({description: description.value})">Salvar</button>
+    </div>
+  </ng-template>
+
+  <ng-template #editContent let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">{{selectedResource.description}}</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <h4 class="form-control alert-danger">Preencha o campo obrigatório</h4>
+        <!-- <div class="form-group">
+          <label for="quantity">Quantidade</label>
+          <div class="input-group">
+            <input class="form-control" type="number" name="quantity" [(ngModel)]="selectedResource.quantity" required>
+          </div>
+        </div> -->
+        <div class="form-group">
+          <label for="observable">Observação</label>
+          <div class="input-group">
+            <input class="form-control" type="text" name="observable" [(ngModel)]="selectedResource.observable"
+              #observable required>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" *ngIf="observable.value"
+        (click)="modal.close()">Editar</button>
+    </div>
+  </ng-template>
+
+  <ng-template #deleteContent let-modal>
+    <div class="modal-header">
+      <h3 class="modal-title" id="modal-basic-title">Atenção</h3>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <h4>Tem certeza que deseja excluir esse recurso?</h4>
+        <div class="form-group">
+          <label for="description">Descrição</label>
+          <div class="input-group">
+            <input class="form-control" type="text" readonly name="description"
+              [(ngModel)]="selectedResource.description" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="quantity">Quantidade</label>
+          <div class="input-group">
+            <input class="form-control" type="number" readonly name="quantity" [(ngModel)]="selectedResource.quantity"
+              required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="observable">Observação</label>
+          <div class="input-group">
+            <input readonly class="form-control" type="text" name="observable" [(ngModel)]="selectedResource.observable"
+              required>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('delete')">Apagar</button>
+    </div>
+  </ng-template>
+
+  <ng-template #transContent let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Movimentação</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <h4 class="form-control alert-danger">Preencha todos os campos</h4>
+        <div class="form-group">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="input"
+              [(ngModel)]="typeTrans">
+            <label class="form-check-label" for="inlineRadio1">Entrada</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="output"
+              [(ngModel)]="typeTrans">
+            <label class="form-check-label" for="inlineRadio2">Saída</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="observable">Nome</label>
+          <div class="input-group">
+            <input class="form-control" type="text" name="name" required #responsibleName>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="observable">Recurso</label>
+          <div class="input-group">
+            <select [(ngModel)]="resources" class="form-control" #resourceName>
+              <option selected>Selecione...</option>
+              <option *ngFor="let resource of resources" [value]="resource.id">{{ resource.description }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="quantity">Quantidade</label>
+          <div class="input-group">
+            <input type="number" class="form-control" #qtd>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark"
+        *ngIf="typeTrans && responsibleName.value && resourceName.value && qtd.value"
+        (click)="modal.close({responsible: responsibleName.value, resourceId: resourceName.value, quantity: qtd.value})">
+        Salvar</button>
+    </div>
+  </ng-template>
+
+  <button class="btn btn-primary" (click)="open(newContent,{})" ngbTooltip="Novo"><i class="pi pi-file"></i></button>
+  <button class="btn btn-warning" (click)="open(transContent,resource)" ngbTooltip="Transação"><i
+      class="pi pi-sort-alt"></i></button>
+  <hr>
+  <h1 class="text-center">Recursos</h1>
+  <div class="row">
+    <h4 *ngIf="resources.length == 0" class="form-control alert-info text-center">Ainda não existem recursos cadastrados
+      no sistema</h4>
+    <div class="col-lg-6" *ngFor="let resource of resources">
+      <ul>
+        <li><b>{{resource.description}}</b></li>
+        <li>Quantidade: {{resource.quantity}}</li>
+        <li>Observação: {{resource.observable}}</li>
+      </ul>
+      <button class="btn btn-info" ngbTooltip="Editar" (click)="open(editContent,resource)"><i
+          class="pi pi-pencil"></i></button>
+      <button class="btn btn-danger" ngbTooltip="Apagar" (click)="open(deleteContent, resource)"><i
+          class="pi pi-trash"></i></button>
+      <hr>
+    </div>
+  </div>
+</div>

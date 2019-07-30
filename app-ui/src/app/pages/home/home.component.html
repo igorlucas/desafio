@@ -1,0 +1,62 @@
+<div class="jumbotron">
+  <h1 class="text-center">Visão Geral</h1>
+  <hr>
+  <div class="row">
+ 
+    <div class="border border-dark col-lg-4">
+      <div class="row">
+        <div class="col-lg-6 text-center">
+          <h5>Total de Recursos</h5>
+          <hr>
+          <h5>{{resources.length}}</h5>
+        </div>
+        <div class="col-lg-6">
+          <div *ngFor="let resource of resources">
+            <p>{{resource.description}}</p>
+            <hr>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="border border-dark col-lg-4">
+      <div class="row">
+        <div class="col-lg-3 text-center">
+          <h5>Total de Entradas</h5>
+          <hr>
+          <h5>{{inputs.length}}</h5>
+        </div>
+        <div class="col-lg-9">
+          <div *ngFor="let input of inputs">
+            <ul>
+              <li>{{input.responsible}}</li>
+              <li>RecursoID: {{input.resourceId}}</li>
+              <li>QTD: {{input.quantity}}</li>
+            </ul>
+            <hr>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="border border-dark col-lg-4">
+      <div class="row">
+        <div class="col-lg-3 text-center">
+          <h5>Total de Saídas</h5>
+          <hr>
+          <h5>{{outputs.length}}</h5>
+        </div>
+        <div class="col-lg-9">
+          <div *ngFor="let output of outputs">
+            <ul>
+              <li>{{output.responsible}}</li>
+              <li>RecursoID: {{output.resource}}</li>
+              <li>QTD: {{output.quantity}}</li>
+            </ul>
+            <hr>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

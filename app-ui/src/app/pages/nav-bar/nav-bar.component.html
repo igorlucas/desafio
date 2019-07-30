@@ -1,0 +1,14 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" [routerLink]='[""]'>Navbar</a>
+  <div class="collapse navbar-collapse" id="navbarColor02">
+    <ul class="navbar-nav mr-auto">
+      <li ngbDropdown class="d-inline-block">
+        <a class="nav-link" [routerLink]="" id="dropdownBasic1" ngbDropdownToggle>Ações</a>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <a ngbDropdownItem [routerLink]='["resources/list"]'>Recursos</a>
+          <!-- <a ngbDropdownItem href="#">Movimentações</a> -->
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
